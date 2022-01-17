@@ -8,7 +8,7 @@ from core import models as core_models
 
 class AbstractItem(core_models.TimeStampedModel):
 
-    """AbstractItem"""
+    """AbstractItem Definition"""
 
     name = models.CharField(max_length=80)
 
@@ -21,15 +21,47 @@ class AbstractItem(core_models.TimeStampedModel):
 
 class RoomType(AbstractItem):
 
-    """Room Type"""
+    """Room Type Definition"""
 
-    pass
+    class Meta:
+        verbose_name = "Room Type"
+        ordering = ("name",)
 
 
 class HouseRule(AbstractItem):
-    """House Rules"""
 
-    pass
+    """House Rules Definition"""
+
+    class Meta:
+        verbose_name = "House Rule"
+
+
+class Amenity(AbstractItem):
+
+    """Amenities Definition"""
+
+    class Meta:
+        verbose_name_plural = "Amenities"
+
+
+class Facility(AbstractItem):
+
+    """Facilities Definition"""
+
+    class Meta:
+        verbose_name_plural = "Facilities"
+
+
+class Photo(core_models.TimeStampedModel):
+
+    """Photo Model Definition"""
+
+    caption = models.CharField(max_length=80)
+    file = models.ImageField()
+    room = models.ForeignKey("Room", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.caption
 
 
 class Room(core_models.TimeStampedModel):
@@ -49,10 +81,14 @@ class Room(core_models.TimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
     host = models.ForeignKey("users.User", on_delete=models.CASCADE)
-    room_type = models.ManyToManyField(
+    room_type = models.ForeignKey(
         RoomType,
-        blank=True,
+        on_delete=models.SET_NULL,
+        null=True,
     )
+    amenities = models.ManyToManyField(Amenity, blank=True)
+    house_rules = models.ManyToManyField(HouseRule, blank=True)
+    facilities = models.ManyToManyField(Facility, blank=True)
 
     def __str__(self):
         return self.name

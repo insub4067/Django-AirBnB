@@ -2,13 +2,11 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.RoomType)
+@admin.register(models.RoomType, models.HouseRule, models.Facility, models.Amenity)
 class ItemAdmin(admin.ModelAdmin):
-    pass
 
+    """Item Admin Definition"""
 
-@admin.register(models.HouseRule)
-class ItemAdmin(admin.ModelAdmin):
     pass
 
 
@@ -17,5 +15,13 @@ class ItemAdmin(admin.ModelAdmin):
 class RoomAdmin(admin.ModelAdmin):
 
     """Custom Room Admin"""
+
+    pass
+
+
+@admin.register(models.Photo)
+class PhotoAdmin(admin.ModelAdmin):
+
+    """Custom Photo Admin"""
 
     pass
