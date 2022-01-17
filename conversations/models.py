@@ -10,7 +10,7 @@ class Conversation(TimeStampedModel):
     participants = models.ManyToManyField("users.User", blank=True)
 
     def __str__(self):
-        return self.createdAt
+        return str(self.createdAt)
 
 
 class Message(TimeStampedModel):
