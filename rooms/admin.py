@@ -71,7 +71,7 @@ class RoomAdmin(admin.ModelAdmin):
         ),
     )
 
-    ordering = ("createdAt",)
+    ordering = ("created",)
 
     list_display = (
         "name",
