@@ -14,3 +14,6 @@ class List(TimeStampedModel):
 
     def __str__(self):
         return f"{self.user} - {self.name}"
+
+    def count_rooms(self):
+        return self.room.count()

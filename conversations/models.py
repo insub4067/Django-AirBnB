@@ -12,7 +12,23 @@ class Conversation(TimeStampedModel):
     )
 
     def __str__(self):
-        return str(self.createdAt)
+
+        usernames = []
+        users = self.participants.all()
+        for user in users:
+            usernames.append(user.username)
+
+        return usernames
+
+    def count_messages(self):
+        return self.messages.count()
+
+    count_messages.short_description = "Number of messages"
+
+    def count_participants(self):
+        return self.participants.count()
+
+    count_participants.short_description = "Number of participants"
 
 
 class Message(TimeStampedModel):
